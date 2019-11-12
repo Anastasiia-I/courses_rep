@@ -1,19 +1,14 @@
 from django.db import models
 
 class Category(models.Model):
-    TYPES = (
-        (1, 'Languages'),
-        (2, 'Cooking'),
-        (3, 'Writing'),
-        (4, 'Singing'),
-    )
-    name = models.CharField(max_length=100, choices=TYPES)
+    name = models.CharField(max_length=100)
+    img_path = models.CharField(max_length=30)
 
 class Course(models.Model):
     name = models.CharField(max_length=50)
-    logo = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     category = models.ForeignKey(Category, related_name='courses', on_delete=models.CASCADE)
+    logo = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
@@ -24,7 +19,7 @@ class Contact(models.Model):
         (2, 'Facebook'),
         (3, 'Email'),
     )
-    type = models.CharField(max_length=90, choices=TYPE)
+    type = models.IntegerField(choices=TYPE)
     value = models.CharField(max_length=255)
     course = models.ForeignKey(Course, related_name='contacts', on_delete=models.CASCADE)
 
